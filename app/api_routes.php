@@ -13,7 +13,7 @@ $app->get('/', function(Request $request) use ($app) {
 });
 
 // Get query
-$app->get('/{query}', function(Request $request, $query) use ($app) {
+$app->get('/daily/{query}', function(Request $request, $query) use ($app) {
 	// Dailymotion
 	$client = new Client([
 	    'base_uri' => 'https://api.dailymotion.com',
@@ -37,6 +37,24 @@ $app->get('/deezer/{query}', function(Request $request, $query) use ($app) {
 	$res = $client->get('/search', [
 	    'query' => ['q' => $query]
 	]);
+	$result = json_decode($res->getBody()->__toString());
+
+	return new JsonResponse($result, 200);
+});
+
+$app->get('/bing/{query}', function(Request $request, $query) use ($app) {
+	// Deezer
+	$client = new Client([
+	    'base_uri' => 'https://api.cognitive.microsoft.com',
+	    'timeout'  => 10.0,
+	]);
+	$res = $client->get('/bing/v5.0/search',
+		[
+	    'query' => ['q' => $query],
+	    'headers' => [
+	        'Ocp-Apim-Subscription-Key' => '3c39a85131684fdfb6526c2b316b7c83',
+	    ]
+		]);
 	$result = json_decode($res->getBody()->__toString());
 
 	return new JsonResponse($result, 200);
