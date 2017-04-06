@@ -13,7 +13,6 @@ $app->get('/', function(Request $request) use ($app) {
 });
 
 // Get query
-// Get query
 $app->get('/{query}', function(Request $request, $query) use ($app) {
 	// Dailymotion
 	$client = new Client([
@@ -24,6 +23,21 @@ $app->get('/{query}', function(Request $request, $query) use ($app) {
 	    'query' => ['tags' => $query]
 	]);
 	$result = json_decode($res->getBody()->__toString());
-	
+
+	return new JsonResponse($result, 200);
+});
+
+// Get query
+$app->get('/deezer/{query}', function(Request $request, $query) use ($app) {
+	// Deezer
+	$client = new Client([
+	    'base_uri' => 'https://api.deezer.com',
+	    'timeout'  => 10.0,
+	]);
+	$res = $client->get('/search', [
+	    'query' => ['q' => $query]
+	]);
+	$result = json_decode($res->getBody()->__toString());
+
 	return new JsonResponse($result, 200);
 });

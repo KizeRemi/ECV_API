@@ -1,4 +1,4 @@
 RewriteEngine On
-RewriteBase /ecv/ECV_API/
+RewriteBase /api/ECV_API/
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule . index.php [L]
