@@ -20,12 +20,25 @@ $app->get('/daily/{query}', function(Request $request, $query) use ($app) {
 	    'timeout'  => 2.0,
 	]);
 	$res = $client->get('/videos', [
-	    'query' => ['tags' => $query]
+	    'query' => ['search' => $query, 'limit' => 3]
 	]);
 	$result = json_decode($res->getBody()->__toString());
 
 	return new JsonResponse($result, 200);
 });
+
+$app->get('/daily/user/{query}', function(Request $request, $query) use ($app) {
+	// Dailymotion
+	$client = new Client([
+	    'base_uri' => 'https://api.dailymotion.com',
+	    'timeout'  => 2.0,
+	]);
+	$res = $client->get('/user/'.$query);
+	$result = json_decode($res->getBody()->__toString());
+
+	return new JsonResponse($result, 200);
+});
+
 
 // Get query
 $app->get('/deezer/{query}', function(Request $request, $query) use ($app) {
