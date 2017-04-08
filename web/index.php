@@ -9,7 +9,7 @@ require_once(__DIR__."/../vendor/autoload.php");
 use \GuzzleHttp\Client;
 
 $client = new Client([
-    'base_uri' => 'http://localhost:8888',
+    'base_uri' => 'http://localhost',
     'timeout'  => 2.0,
 ]);
 ?>
@@ -29,7 +29,7 @@ $client = new Client([
 
 if (isset($_POST['search']) && !empty($_POST['search'])) {
 	// BlOC BING
-	$res = $client->get('API/bing/'.$_POST['search']);
+	$res = $client->get('ECV_API/bing/'.$_POST['search']);
 	$result = json_decode($res->getBody()->__toString());
 	$pages = $result->webPages->value;
 	?>
@@ -63,7 +63,7 @@ if (isset($_POST['search']) && !empty($_POST['search'])) {
 	</div>
 	<?php
 	// BLOC DAILYMOTION
-	$res = $client->get('API/daily/'.$_POST['search']);
+	$res = $client->get('ECV_API/daily/'.$_POST['search']);
 	$result = json_decode($res->getBody()->__toString());
 	?>
 	<div class="daily">
@@ -71,7 +71,7 @@ if (isset($_POST['search']) && !empty($_POST['search'])) {
 		<?php 
 			$videos = $result->list;
 			foreach($videos as $video){
-				$res = $client->get('API/daily/user/'.$video->owner);
+				$res = $client->get('ECV_API/daily/user/'.$video->owner);
 				$user = json_decode($res->getBody()->__toString());	
 				?>
 				<div class="bloc_video">
@@ -88,7 +88,7 @@ if (isset($_POST['search']) && !empty($_POST['search'])) {
 	</div>
 	<?php 
 	// BLOC DEEZER
-	$res = $client->get('API/deezer/'.$_POST['search']);
+	$res = $client->get('ECV_API/deezer/'.$_POST['search']);
 	$result = json_decode($res->getBody()->__toString());
 	$musics = $result->data;
 	?>
