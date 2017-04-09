@@ -1,3 +1,23 @@
 body{
-	
+
+}
+h1, h2{
+	text-align: center;
+}
+.form-group{
+	width: 100%;
+	text-align: center;
+}
+form{
+	margin: 80px 0;
+}
+.daily{
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+
+.bloc_video{
+	display: inline-block;
+	text-align: center;
 }
